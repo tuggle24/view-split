@@ -1,0 +1,35 @@
+{
+  "name": "ui-divider",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint packages/**",
+    "format": "npx prettier --write .",
+    "prepare": "husky install"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "eslint": "^7.28.0",
+    "eslint-config-eslint": "^7.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-compat": "^3.9.0",
+    "eslint-plugin-unicorn": "^33.0.1",
+    "husky": "^6.0.0",
+    "prettier": "2.2.1",
+    "vite": "^2.2.4"
+  }
+}
