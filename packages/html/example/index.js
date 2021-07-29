@@ -1,5 +1,5 @@
-import Divider from "../divider";
+import divider from "../divider";
 
 const left = document.getElementById("panel-left");
 
-Divider([left, "#panel-middle", "#panel-right"]);
+divider([left, "#panel-middle", "#panel-right"]);
