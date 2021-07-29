@@ -1,3 +1,5 @@
+Currently work in progress
+
 Divide a layout into resizable views.
 Available for use in vanilla Javasript, React, Angular, Vue and Svelte!
 
