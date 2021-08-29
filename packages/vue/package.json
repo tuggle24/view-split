@@ -1,0 +1,27 @@
+{
+  "name": "divider-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "develop": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuggle24/divider.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuggle24/divider/issues"
+  },
+  "homepage": "https://github.com/tuggle24/divider#readme",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/compiler-sfc": "^3.2.6",
+    "vite": "^2.5.1"
+  },
+  "dependencies": {
+    "vue": "^3.2.6"
+  }
+}
