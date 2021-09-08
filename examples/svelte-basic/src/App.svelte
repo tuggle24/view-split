@@ -15,13 +15,17 @@
 
 <h4>You feeling better?</h4>
 
-<Split dividerSize={17}>
+<!-- <Split dividerSize={17}>
 	<Pane id={1}>a</Pane>
 	<Divider />
 	<Pane id={2}>b</Pane>
 	<Divider />
 	<Pane id={3}>c</Pane>
-<!-- 		<Divider /> -->
+</Split> -->
+
+<Split dividerSize={17}>
+	<div>a</div>
+	<div>b</div>
 </Split>
 
 

@@ -52,7 +52,7 @@ export function dividing(node, divider) {
 
   let adjacentSizes;
   sizes.subscribe((s) => {
-    console.log("in Subscribe: ", s);
+    // console.log("in Subscribe: ", s);
     const dividerPosition = s.findIndex((el) => el === divider);
     adjacentSizes = [s[dividerPosition - 1].size, s[dividerPosition + 1].size];
   });

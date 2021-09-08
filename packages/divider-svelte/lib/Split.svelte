@@ -1,43 +1,53 @@
-<script context="module">
-	export const SPLIT = {};
-</script>
-
 <script>
-	import { setContext, } from 'svelte';
-	import { sizes } from './stores.js'
-	
-	export let dividerSize = 10
+	import { writable } from "svelte/store";
+	import { handleMouseDown } from 'divider-html'
 
-	setContext(SPLIT, {
-		registerPane: pane => {
-			sizes.update(c => {
-					const newSizes = [...c, pane]
-					const amountOfPanes = newSizes.filter(p => p.type === 'pane').length
-				const updatedSystem = newSizes.map(p => {
-					if (p.type === 'pane') {
-						p.size = 100 / amountOfPanes
-					}
-					return p
-				})
-				return updatedSystem
-			})
-		},
-		registerDivider: divider => {
-			sizes.update(c => {
-				const newSizes = [...c, divider]
-				const updatedSystem = newSizes.map(p => {
-					if (p.type === 'divider') {
-						p.size = dividerSize
-					}
-					return p
-				})
-				return updatedSystem
-			})
-		},
-		sizes
-	})
+	export const areas = writable([50, 50]);
+
+	export let dividerSize = 10
+	function paintScreen (updatedAreas) {
+		areas.update(a => updatedAreas)
+	}
+
+	function curryMouseDown (event) {
+		const currentSizes = $areas
+		handleMouseDown(event, currentSizes, paintScreen)
+	}
+
+	let panes = []
+
+	$: {
+		panes.forEach((pane, position) => {
+			const siz = $areas[position]
+			const roomForDividers = (dividerSize * 1) / 2
+			pane.style.width = `calc(${siz}% - ${roomForDividers}px`
+		})
+	}
+
+	function splitView (node) {
+
+		parent = node
+		const amountOfChildren = node.children.length
+
+		for (let i = 0; i < amountOfChildren; ++i) {
+			const child = node.children[i]
+			const area = $areas[i]
+			const roomForDividers = (dividerSize * 1) / 2
+			child.style.width = `calc(${area}% - ${roomForDividers}px`
+
+	panes.push(child)
+
+			if (i % 2 !== 0) {
+				const divider = document.createElement("div")
+				divider.style.width = `${dividerSize}px`
+				divider.style.backgroundColor = 'black'
+				node.insertBefore(divider, child);
+				divider.addEventListener('mousedown', curryMouseDown)
+			}
+		}
+	}
 </script>
 
-<div style='display: flex'>
+<div style='display: flex' use:splitView >
 	<slot />
 </div>
