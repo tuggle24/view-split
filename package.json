@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint packages/**",
     "format": "npx prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "develop": "vite serve $npm_config_greeting"
   },
   "browserslist": [
     "defaults"
@@ -16,7 +17,8 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -30,6 +32,8 @@
     "eslint-plugin-unicorn": "^33.0.1",
     "husky": "^6.0.0",
     "prettier": "2.2.1",
-    "vite": "^2.2.4"
-  }
+    "rollup": "^2.56.3",
+    "vite": "^2.5.3"
+  },
+  "dependencies": {}
 }

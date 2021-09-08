@@ -1,0 +1,29 @@
+{
+  "name": "svelte-basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.21",
+    "svelte": "^3.42.4",
+    "vite": "^2.5.3"
+  },
+  "dependencies": {
+    "divider-svelte": "file:../../packages/divider-svelte"
+  },
+  "scripts": {
+    "dev": "vite --debug",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuggle24/divider.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuggle24/divider/issues"
+  },
+  "homepage": "https://github.com/tuggle24/divider#readme"
+}

@@ -1,10 +1,4 @@
-/**
- * A no-op function
- * @returns {undefined}
- */
-function noOperation() {
-  // NOOP function
-}
+import { buildSystem, noOperation } from "./core";
 
 /**
  * A divider function
@@ -13,38 +7,40 @@ function noOperation() {
  * @returns {undefined}
  */
 export default function Divider(nodes, options = {}) {
-  const config = {
-    sizes: nodes.map(() => 100 / nodes.length),
-    minSizes: nodes.map(() => 100),
-    maxSizes: nodes.map(() => Number.POSITIVE_INFINITY),
-    isDividerVisible: false,
-    expandMin: false,
-    expandMax: false,
-    step: 10,
-    snap: 50,
-    divide: "vertical",
-    cursor: "col-resize",
-    onDrag: noOperation,
-    onDragStart: noOperation,
-    onDragEnd: noOperation,
-    onResize: noOperation,
-    dividerSize: 10,
-    createDivider: noOperation,
-    statics: [],
-  };
+  // const config = {
+  //   sizes: nodes.map(() => 100 / nodes.length),
+  //   minSizes: nodes.map(() => 100),
+  //   maxSizes: nodes.map(() => Number.POSITIVE_INFINITY),
+  //   isDividerVisible: false,
+  //   expandMin: false,
+  //   expandMax: false,
+  //   step: 10,
+  //   snap: 50,
+  //   divide: "vertical",
+  //   cursor: "col-resize",
+  //   onDrag: noOperation,
+  //   onDragStart: noOperation,
+  //   onDragEnd: noOperation,
+  //   onResize: noOperation,
+  //   dividerSize: 10,
+  //   createDivider: noOperation,
+  //   statics: [],
+  // };
 
-  for (const key of Object.keys(options)) {
-    if (options[key].constructor.name === config[key].constructor.name) {
-      config[key] = options[key];
-    } else {
-      throw new Error(
-        `config, ${options[key]}, should be of type: ${config[key].constructor.name}`
-      );
-    }
-  }
+  // for (const key of Object.keys(options)) {
+  //   if (options[key].constructor.name === config[key].constructor.name) {
+  //     config[key] = options[key];
+  //   } else {
+  //     throw new Error(
+  //       `config, ${options[key]}, should be of type: ${config[key].constructor.name}`
+  //     );
+  //   }
+  // }
 
-  config.numOfPanels = nodes.length;
-  config.numOfDividers = config.numOfPanels - 1;
+  // config.numOfPanels = nodes.length;
+  // config.numOfDividers = config.numOfPanels - 1;
+
+  const config = buildSystem(options, nodes.length);
 
   /**
    * A divider function
@@ -150,6 +146,8 @@ export default function Divider(nodes, options = {}) {
     document.removeEventListener("mouseup", this.stop);
   }
 
+  function paintScreen(sizes) {}
+
   nodes = nodes.map((id, position) => {
     const element =
       id.constructor.name === "String" ? document.querySelector(id) : id;
@@ -168,6 +166,7 @@ export default function Divider(nodes, options = {}) {
 
     if (position === 0) {
       config.parent = node.element.parentNode;
+      config.refs.push(node.element);
       return node;
     }
 
@@ -176,6 +175,7 @@ export default function Divider(nodes, options = {}) {
       previous: position - 1,
       next: position,
     };
+    config.refs.push(divider.element, node.element);
 
     divider.element.style.width = `${config.dividerSize}px`;
     divider.element.className = "divider";
@@ -189,4 +189,5 @@ export default function Divider(nodes, options = {}) {
 
     return node;
   });
+  console.log(config);
 }

@@ -1,14 +1,19 @@
 {
-  "name": "divider-html",
+  "name": "html-basic",
   "version": "0.1.0",
   "description": "",
   "main": "divider.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "develop": "vite serve example"
+    "develop": "vite"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "devDependencies": {
+    "vite": "^2.5.1"
+  },
+  "dependencies": {
+    "divider-html": "file:../../packages/divider-html"
+  }
 }

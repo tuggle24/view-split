@@ -1,5 +1,5 @@
 {
-  "name": "divider-vue",
+  "name": "vue2-basic",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,11 +17,12 @@
   },
   "homepage": "https://github.com/tuggle24/divider#readme",
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.6.0",
-    "@vue/compiler-sfc": "^3.2.6",
-    "vite": "^2.5.1"
+    "vite": "^2.5.2",
+    "vite-plugin-vue2": "^1.8.1",
+    "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
-    "vue": "^3.2.6"
+    "divider-vue": "file:../../packages/divider-vue",
+    "vue": "^2.6.14"
   }
 }

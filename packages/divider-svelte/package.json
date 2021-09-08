@@ -1,0 +1,29 @@
+{
+  "name": "divider-svelte",
+  "version": "1.0.0",
+  "description": "",
+  "svelte": "lib/index.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "rollup": "^2.56.3",
+    "rollup-plugin-svelte": "^7.1.0",
+    "svelte": "^3.42.4"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "rollup -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuggle24/divider.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuggle24/divider/issues"
+  },
+  "homepage": "https://github.com/tuggle24/divider#readme"
+}
