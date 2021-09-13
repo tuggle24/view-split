@@ -10,9 +10,6 @@
     "prepare": "husky install",
     "develop": "vite serve $npm_config_greeting"
   },
-  "browserslist": [
-    "defaults"
-  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -21,19 +18,26 @@
     "examples/*"
   ],
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
-    "eslint": "^7.28.0",
+    "eslint": "^7.32.0",
     "eslint-config-eslint": "^7.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-compat": "^3.9.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-svelte3": "^3.2.1",
     "eslint-plugin-unicorn": "^33.0.1",
+    "eslint-plugin-vue": "^7.17.0",
     "husky": "^6.0.0",
     "prettier": "2.2.1",
     "rollup": "^2.56.3",
     "vite": "^2.5.3"
-  },
-  "dependencies": {}
+  }
 }

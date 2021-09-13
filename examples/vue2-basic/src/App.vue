@@ -13,6 +13,8 @@ export default {
     <HelloWorld msg="Hello Vue 3 + Vite">
       <div>a</div>
       <div>c</div>
+      <div>f</div>
+      <div>g</div>
     </HelloWorld>
     <p>So this work</p>
     <p>But why?</p>

@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/HelloWorld.js",
   "scripts": {
-    "develop": "rollup -c -w"
+    "watch": "rollup -c -w"
   },
   "repository": {
     "type": "git",

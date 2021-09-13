@@ -1,6 +1,5 @@
 <script>
 	import { getContext } from 'svelte';
-	import { SPLIT } from './Split.svelte'
 	import { dividing } from './stores.js'
 	
 	const { registerDivider } = getContext(SPLIT)

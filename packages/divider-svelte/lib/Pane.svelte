@@ -1,7 +1,6 @@
 
 <script>
     import { getContext, onMount } from 'svelte';
-import { SPLIT } from './Split.svelte'
 
 const { registerPane, sizes } = getContext(SPLIT)
 

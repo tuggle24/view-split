@@ -1,21 +1,25 @@
 <script>
-import { handleMouseDown } from "divider-html";
+import { handleMouseDown, buildSystem } from "divider-html";
 
 export default {
   data() {
     return {
-      sizes: [],
+      system: buildSystem({}, this.$slots.default.length),
     };
   },
-  created() {
-    this.sizes = [50, 50];
-  },
   methods: {
-    onMouseDown(event) {
-      handleMouseDown(event, this.sizes, this.paintScreen);
+    onMouseDown(event, position) {
+      handleMouseDown(position, event, this.system, this.paintScreen);
     },
-    paintScreen(updatedSizes) {
-      this.sizes = updatedSizes;
+    paintScreen(position, updatedSizes) {
+      for (let i = 0; i < this.system.sizes.length; i++) {
+        if (i == position - 1) {
+          this.$set(this.system.sizes, i, updatedSizes[0]);
+        }
+        if (i == position) {
+          this.$set(this.system.sizes, i, updatedSizes[1]);
+        }
+      }
     },
   },
   render: function (h) {
@@ -27,7 +31,10 @@ export default {
         dividends.push(
           h(
             "div",
-            { style: { width: "10px" }, on: { mousedown: this.onMouseDown } },
+            {
+              style: { width: "10px" },
+              on: { mousedown: (e) => this.onMouseDown(e, index) },
+            },
             "b"
           )
         );
@@ -36,7 +43,11 @@ export default {
       dividends.push(
         h(
           "div",
-          { style: { width: `calc(${this.sizes[index]}% - ${10 / 2}px)` } },
+          {
+            style: {
+              width: `calc(${this.system.sizes[index]}% - ${10 / 2}px)`,
+            },
+          },
           [this.$slots.default[index]]
         )
       );

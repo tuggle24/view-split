@@ -1,15 +1,13 @@
-export function noOperation() {
+function noOperation() {
   // NOOP function
 }
 
-export function handleMouseUp(moveHandler, previousElement, nextElement) {
+function handleMouseUp(moveHandler, previousElement, nextElement) {
   return function handler(event) {
     event.preventDefault();
 
     document.removeEventListener("mousemove", moveHandler);
     document.removeEventListener("mouseup", handler);
-
-    // console.log(event.target);
 
     previousElement.removeEventListener("selectstart", noOperation);
     previousElement.removeEventListener("dragstart", noOperation);
@@ -25,17 +23,15 @@ export function handleMouseUp(moveHandler, previousElement, nextElement) {
     nextElement.style.webkitUserSelect = "";
     nextElement.style.MozUserSelect = "";
     nextElement.style.pointerEvents = "";
-
-    // document.removeEventListener("mousemove", this.drag);
-    // document.removeEventListener("mouseup", this.stop);
   };
 }
 
-export function handleMouseMove(
-  dragOffset,
+function handleMouseMove(
+  position,
   mouseDownEvent,
-  currentSizes,
-  paintScreen
+  dragOffset,
+  system,
+  updateSizes
 ) {
   return function handler(mouseMoveEvent) {
     mouseMoveEvent.preventDefault();
@@ -44,23 +40,25 @@ export function handleMouseMove(
       mouseMoveEvent.clientX -
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()
         .left +
-      ((10 * 1) / 2 - dragOffset);
+      ((system.dividerSize * system.numberOfDividers) / system.numberOfPanels -
+        dragOffset);
 
     const size =
-      ((10 * 1) / 2) * 1 +
+      ((system.dividerSize * system.numberOfDividers) / system.numberOfPanels) *
+        system.numberOfPanels +
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()
         .width +
       mouseDownEvent.target.nextElementSibling.getBoundingClientRect().width;
 
-    const totalPer = currentSizes[0] + currentSizes[1];
+    const totalPer = system.sizes[position - 1] + system.sizes[position];
     const previousSiblingSize = (offset / size) * totalPer;
     const nextSiblingSize = totalPer - (offset / size) * totalPer;
 
-    paintScreen([previousSiblingSize, nextSiblingSize]);
+    updateSizes(position, [previousSiblingSize, nextSiblingSize]);
   };
 }
 
-export function handleMouseDown(event, sizes, paintScreen) {
+export function handleMouseDown(position, event, store, updateSizes) {
   event.preventDefault();
   if (event.button !== 0) {
     return;
@@ -69,14 +67,10 @@ export function handleMouseDown(event, sizes, paintScreen) {
   const previousElement = event.target.previousElementSibling;
   const nextElement = event.target.nextElementSibling;
 
-  const dragOffset = event.clientX - event.target.getBoundingClientRect().left;
-  const moveHandler = handleMouseMove(dragOffset, event, sizes, paintScreen);
-
   previousElement.addEventListener("selectstart", noOperation);
   previousElement.addEventListener("dragstart", noOperation);
   nextElement.addEventListener("selectstart", noOperation);
   nextElement.addEventListener("dragstart", noOperation);
-  console.log(previousElement);
 
   previousElement.style.userSelect = "none";
   previousElement.style.webkitUserSelect = "none";
@@ -88,6 +82,15 @@ export function handleMouseDown(event, sizes, paintScreen) {
   nextElement.style.MozUserSelect = "none";
   nextElement.style.pointerEvents = "none";
 
+  const dragOffset = event.clientX - event.target.getBoundingClientRect().left;
+  const moveHandler = handleMouseMove(
+    position,
+    event,
+    dragOffset,
+    store,
+    updateSizes
+  );
+
   document.addEventListener("mousemove", moveHandler);
   document.addEventListener(
     "mouseup",
@@ -95,20 +98,20 @@ export function handleMouseDown(event, sizes, paintScreen) {
   );
 }
 
-export function buildSystem(options, amountOfDivisions) {
+function createArray(length, value) {
+  const emptyCollection = [];
+  while (length) {
+    emptyCollection.push(value);
+    length--;
+  }
+  return emptyCollection;
+}
+
+export function buildSystem(options = {}, amountOfDivisions) {
   const config = {
-    sizes: Array.from({ length: amountOfDivisions }).fill(
-      100 / amountOfDivisions
-    ),
-    minSizes: Array.from({ length: amountOfDivisions }).fill(100),
-    maxSizes: Array.from({ length: amountOfDivisions }).fill(
-      Number.POSITIVE_INFINITY
-    ),
-    isDividerVisible: false,
-    expandMin: false,
-    expandMax: false,
-    step: 10,
-    snap: 50,
+    sizes: createArray(amountOfDivisions, 100 / amountOfDivisions),
+    minSizes: createArray(amountOfDivisions, 100),
+    maxSizes: createArray(amountOfDivisions, Number.POSITIVE_INFINITY),
     divide: "vertical",
     cursor: "col-resize",
     onDrag: noOperation,
@@ -116,11 +119,8 @@ export function buildSystem(options, amountOfDivisions) {
     onDragEnd: noOperation,
     onResize: noOperation,
     dividerSize: 10,
-    createDivider: noOperation,
-    statics: [],
-    numOfPanels: amountOfDivisions,
-    numOfDividers: amountOfDivisions - 1,
-    refs: [],
+    numberOfPanels: amountOfDivisions,
+    numberOfDividers: amountOfDivisions - 1,
   };
 
   for (const key of Object.keys(options)) {
