@@ -66,7 +66,7 @@ function handleMouseMove(
   };
 }
 
-export function handleMouseDown(position, event, store, updateSizes) {
+export function handleMouseDown(position, event, system, updateSizes) {
   event.preventDefault();
   if (event.button !== 0) {
     return;
@@ -90,16 +90,16 @@ export function handleMouseDown(position, event, store, updateSizes) {
   nextElement.style.MozUserSelect = "none";
   nextElement.style.pointerEvents = "none";
 
-  event.target.style.cursor = "col-resize";
-  event.target.parentElement.style.cursor = "col-resize";
-  document.body.style.cursor = "col-resize";
+  event.target.style.cursor = system.cursor;
+  event.target.parentElement.style.cursor = system.cursor;
+  document.body.style.cursor = system.cursor;
 
   const dragOffset = event.clientX - event.target.getBoundingClientRect().left;
   const moveHandler = handleMouseMove(
     position,
     event,
     dragOffset,
-    store,
+    system,
     updateSizes
   );
 
@@ -125,13 +125,13 @@ function createArray(length, value) {
   return emptyCollection;
 }
 
-export function buildSystem(options = {}, amountOfDivisions) {
+export function buildSystem(amountOfDivisions, options) {
   const system = {
     sizes: createArray(amountOfDivisions, 100 / amountOfDivisions),
     minSizes: createArray(amountOfDivisions, 100),
     maxSizes: createArray(amountOfDivisions, Number.POSITIVE_INFINITY),
     divide: "vertical",
-    cursor: "col-resize",
+    cursor: options.divide == "horizontal" ? "row-resize" : "col-resize",
     onDrag: noOperation,
     onDragStart: noOperation,
     onDragEnd: noOperation,
@@ -140,6 +140,8 @@ export function buildSystem(options = {}, amountOfDivisions) {
     numberOfPanels: amountOfDivisions,
     numberOfDividers: amountOfDivisions - 1,
     panelSpaceForDivider: 0,
+    eventDimension: 0,
+    elementDimension: 0,
   };
 
   for (const key of Object.keys(options)) {

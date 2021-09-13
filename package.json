@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "eslint packages/**",
     "format": "npx prettier --write .",
     "prepare": "husky install",
@@ -36,6 +36,7 @@
     "eslint-plugin-unicorn": "^33.0.1",
     "eslint-plugin-vue": "^7.17.0",
     "husky": "^6.0.0",
+    "jest": "^27.2.0",
     "prettier": "2.2.1",
     "rollup": "^2.56.3",
     "vite": "^2.5.3"
