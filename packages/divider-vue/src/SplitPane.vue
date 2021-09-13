@@ -45,7 +45,7 @@ export default {
           "div",
           {
             style: {
-              width: `calc(${this.system.sizes[position]}% - ${10 / 2}px)`,
+              width: `calc(${this.system.sizes[position]}% - ${this.system.panelSpaceForDivider}px)`,
             },
           },
           [this.$slots.default[position]]

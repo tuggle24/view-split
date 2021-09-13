@@ -1,13 +1,6 @@
 import React, { useState, Children, cloneElement } from "react";
 import { handleMouseDown, buildSystem } from "divider-html";
 
-function assign(givenObject) {
-  const result = {};
-  for (var key in givenObject) {
-    result[key] = givenObject[key];
-  }
-  return result;
-}
 export function SplitView({ children, options }) {
   const state = useState(buildSystem(options, Children.count(children)));
   const store = state[0];
@@ -15,7 +8,10 @@ export function SplitView({ children, options }) {
 
   function updateSizes(position, sizes) {
     updateStore((prevSizes) => {
-      const newStore = assign(prevSizes);
+      const newStore = {};
+      for (var key in prevSizes) {
+        newStore[key] = prevSizes[key];
+      }
       for (let i = 0; i < newStore.sizes.length; ++i) {
         if (i == position - 1) {
           newStore.sizes[i] = sizes[0];
@@ -41,14 +37,11 @@ export function SplitView({ children, options }) {
     position < length;
     ++position
   ) {
-    const child = children[position];
-
     if (position != 0) {
-      const captureEvent = capturePosition(position);
       dividends.push(
         <div
           className="divider"
-          onMouseDown={captureEvent}
+          onMouseDown={capturePosition(position)}
           style={{ width: `${store.dividerSize}px` }}
         >
           c
@@ -57,11 +50,9 @@ export function SplitView({ children, options }) {
     }
 
     dividends.push(
-      cloneElement(child, {
+      cloneElement(children[position], {
         style: {
-          width: `calc(${store.sizes[position]}% - ${
-            (store.dividerSize * store.numberOfDividers) / store.numberOfPanels
-          }px)`,
+          width: `calc(${store.sizes[position]}% - ${store.panelSpaceForDivider}px)`,
         },
       })
     );

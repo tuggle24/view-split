@@ -22,8 +22,7 @@
 
 	function capturePosition (position) {
 		return function (event) {
-			const currentSizes = $store
-			handleMouseDown(position, event, currentSizes, paintScreen)
+			handleMouseDown(position, event, $store, paintScreen)
 		}
 	}
 
@@ -31,31 +30,25 @@
 
 	$: {
 		panes.forEach((pane, position) => {
-			const siz = $store.sizes[position]
-			const roomForDividers = ($store.dividerSize * 1) / 2
-			pane.style.width = `calc(${siz}% - ${roomForDividers}px)`
+			pane.style.width = `calc(${$store.sizes[position]}% - ${$store.panelSpaceForDivider}px)`
 		})
 	}
 
 	function splitView (node) {
-		parent = node
 		const amountOfChildren = node.children.length
 		store.set(buildSystem(options, amountOfChildren))
 
 		for (let position = amountOfChildren - 1; position >= 0; --position) {
 			const child = node.children[position]
-			const area = $store.sizes[position]
-			const roomForDividers = ($store.dividerSize * 1) / 2
-			child.style.width = `calc(${area}% - ${roomForDividers}px)`
+			child.style.width = `calc(${$store.sizes[position]}% - ${$store.panelSpaceForDivider}px)`
 			panes.unshift(child)
 
 			if (position != 0) {
 				const divider = document.createElement("div")
 				divider.style.width = `${$store.dividerSize}px`
 				divider.style.backgroundColor = 'black'
-				parent.insertBefore(divider, child)
-				const captureEvent = capturePosition(position)
-				divider.addEventListener('mousedown', captureEvent)
+				node.insertBefore(divider, child)
+				divider.addEventListener('mousedown', capturePosition(position))
 			}
 		}
 	}

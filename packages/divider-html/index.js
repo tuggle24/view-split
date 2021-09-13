@@ -40,12 +40,10 @@ function handleMouseMove(
       mouseMoveEvent.clientX -
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()
         .left +
-      ((system.dividerSize * system.numberOfDividers) / system.numberOfPanels -
-        dragOffset);
+      (system.panelSpaceForDivider - dragOffset);
 
     const size =
-      ((system.dividerSize * system.numberOfDividers) / system.numberOfPanels) *
-        system.numberOfPanels +
+      system.panelSpaceForDivider * 2 +
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()
         .width +
       mouseDownEvent.target.nextElementSibling.getBoundingClientRect().width;
@@ -108,7 +106,7 @@ function createArray(length, value) {
 }
 
 export function buildSystem(options = {}, amountOfDivisions) {
-  const config = {
+  const system = {
     sizes: createArray(amountOfDivisions, 100 / amountOfDivisions),
     minSizes: createArray(amountOfDivisions, 100),
     maxSizes: createArray(amountOfDivisions, Number.POSITIVE_INFINITY),
@@ -121,17 +119,21 @@ export function buildSystem(options = {}, amountOfDivisions) {
     dividerSize: 10,
     numberOfPanels: amountOfDivisions,
     numberOfDividers: amountOfDivisions - 1,
+    panelSpaceForDivider: 0,
   };
 
   for (const key of Object.keys(options)) {
-    if (options[key].constructor.name === config[key].constructor.name) {
-      config[key] = options[key];
+    if (options[key].constructor.name === system[key].constructor.name) {
+      system[key] = options[key];
     } else {
       throw new Error(
-        `config, ${options[key]}, should be of type: ${config[key].constructor.name}`
+        `config, ${options[key]}, should be of type: ${system[key].constructor.name}`
       );
     }
   }
 
-  return config;
+  system.panelSpaceForDivider =
+    (system.dividerSize * system.numberOfDividers) / system.numberOfPanels;
+
+  return system;
 }
