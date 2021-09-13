@@ -2,7 +2,13 @@ function noOperation() {
   // NOOP function
 }
 
-function handleMouseUp(moveHandler, previousElement, nextElement) {
+function handleMouseUp(
+  moveHandler,
+  parent,
+  previousElement,
+  divider,
+  nextElement
+) {
   return function handler(event) {
     event.preventDefault();
 
@@ -23,6 +29,10 @@ function handleMouseUp(moveHandler, previousElement, nextElement) {
     nextElement.style.webkitUserSelect = "";
     nextElement.style.MozUserSelect = "";
     nextElement.style.pointerEvents = "";
+
+    divider.style.cursor = "";
+    parent.style.cursor = "";
+    document.body.style.cursor = "";
   };
 }
 
@@ -80,6 +90,10 @@ export function handleMouseDown(position, event, store, updateSizes) {
   nextElement.style.MozUserSelect = "none";
   nextElement.style.pointerEvents = "none";
 
+  event.target.style.cursor = "col-resize";
+  event.target.parentElement.style.cursor = "col-resize";
+  document.body.style.cursor = "col-resize";
+
   const dragOffset = event.clientX - event.target.getBoundingClientRect().left;
   const moveHandler = handleMouseMove(
     position,
@@ -92,7 +106,13 @@ export function handleMouseDown(position, event, store, updateSizes) {
   document.addEventListener("mousemove", moveHandler);
   document.addEventListener(
     "mouseup",
-    handleMouseUp(moveHandler, previousElement, nextElement)
+    handleMouseUp(
+      moveHandler,
+      event.target.parentElement,
+      previousElement,
+      event.target,
+      nextElement
+    )
   );
 }
 
