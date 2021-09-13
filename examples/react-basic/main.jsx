@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { SplitView } from "divider-react";
+import "./main.css";
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
-      <p>Hello Vite + React! Don't forget me!</p>
-      <p>So this will work!!!!</p>
+      <h1 className="title">Split View Example</h1>
       <SplitView>
         <div>a</div>
         <div>b</div>
         <div>d</div>
-        <div>f</div>
+        <div>h</div>
       </SplitView>
     </div>
   );

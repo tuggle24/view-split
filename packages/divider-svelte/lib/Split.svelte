@@ -2,7 +2,6 @@
 	import { writable } from "svelte/store";
 	import { handleMouseDown, buildSystem } from 'divider-html'
 
-	export let dividerSize = 10
 	export let options = {}
 
 	export const store = writable({});
@@ -21,7 +20,7 @@
 		})
 	}
 
-	function handleDown (position) {
+	function capturePosition (position) {
 		return function (event) {
 			const currentSizes = $store
 			handleMouseDown(position, event, currentSizes, paintScreen)
@@ -33,7 +32,7 @@
 	$: {
 		panes.forEach((pane, position) => {
 			const siz = $store.sizes[position]
-			const roomForDividers = (dividerSize * 1) / 2
+			const roomForDividers = ($store.dividerSize * 1) / 2
 			pane.style.width = `calc(${siz}% - ${roomForDividers}px)`
 		})
 	}
@@ -41,31 +40,27 @@
 	function splitView (node) {
 		parent = node
 		const amountOfChildren = node.children.length
-
 		store.set(buildSystem(options, amountOfChildren))
-		console.log($store)
 
-		for (let i = 0; i < amountOfChildren; ++i) {
-			const child = node.children[i]
-			const area = $store.sizes[i]
-			const roomForDividers = (dividerSize * 1) / 2
+		for (let position = amountOfChildren - 1; position >= 0; --position) {
+			const child = node.children[position]
+			const area = $store.sizes[position]
+			const roomForDividers = ($store.dividerSize * 1) / 2
 			child.style.width = `calc(${area}% - ${roomForDividers}px)`
+			panes.unshift(child)
 
-			panes.push(child)
-
-			if (i % 2 !== 0) {
-				const t = handleDown(i)
-
+			if (position != 0) {
 				const divider = document.createElement("div")
-				divider.style.width = `${dividerSize}px`
+				divider.style.width = `${$store.dividerSize}px`
 				divider.style.backgroundColor = 'black'
-				node.insertBefore(divider, child);
-				divider.addEventListener('mousedown', t)
+				parent.insertBefore(divider, child)
+				const captureEvent = capturePosition(position)
+				divider.addEventListener('mousedown', captureEvent)
 			}
 		}
 	}
 </script>
 
-<div style='display: flex' use:splitView >
+<div style='display: flex' use:splitView class='SplitView'>
 	<slot />
 </div>

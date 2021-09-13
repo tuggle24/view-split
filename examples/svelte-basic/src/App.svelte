@@ -1,34 +1,16 @@
 <script>
-	export let name;
 	import { Split } from 'divider-svelte'
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<p>Not clean</p>
-	<p>Is it better?</p>
-	<p>But now we know it is not our linked package</p>
-	<p>Was it really casing?</p>
-	<i>Are you serious?</i>
+	<h1>Split Example</h1>
+	<Split>
+		<div class='panel'>a</div>
+		<div class='panel'>b</div>
+		<div class='panel'>r</div>
+		<div class='panel'>p</div>
+	</Split>
 </main>
-
-<h4>You feeling better?</h4>
-
-<!-- <Split dividerSize={17}>
-	<Pane id={1}>a</Pane>
-	<Divider />
-	<Pane id={2}>b</Pane>
-	<Divider />
-	<Pane id={3}>c</Pane>
-</Split> -->
-
-<Split dividerSize={17}>
-	<div>a</div>
-	<div>b</div>
-</Split>
-
-
 
 <style>
 	main {
@@ -37,11 +19,21 @@
 		max-width: 240px;
 		margin: 0 auto;
 	}
+
+	.panel {
+		height: 70vh;
+		background-color: rgb(182, 255, 212);
+	}
 	h1 {
 		color: #ff3e00;
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
+	}
+
+	.SplitView {
+		height: 70vh;
+		background-color: rgb(182, 255, 212);
 	}
 	@media (min-width: 640px) {
 		main {

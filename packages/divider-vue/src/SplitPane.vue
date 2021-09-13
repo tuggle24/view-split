@@ -26,14 +26,14 @@ export default {
     const dividends = [];
     const amountOfSlots = this.$slots.default.length;
 
-    for (let index = 0; index < amountOfSlots; ++index) {
-      if (index % 2 !== 0) {
+    for (let position = 0; position < amountOfSlots; ++position) {
+      if (position != 0) {
         dividends.push(
           h(
             "div",
             {
               style: { width: "10px" },
-              on: { mousedown: (e) => this.onMouseDown(e, index) },
+              on: { mousedown: (event) => this.onMouseDown(event, position) },
             },
             "b"
           )
@@ -45,10 +45,10 @@ export default {
           "div",
           {
             style: {
-              width: `calc(${this.system.sizes[index]}% - ${10 / 2}px)`,
+              width: `calc(${this.system.sizes[position]}% - ${10 / 2}px)`,
             },
           },
-          [this.$slots.default[index]]
+          [this.$slots.default[position]]
         )
       );
     }

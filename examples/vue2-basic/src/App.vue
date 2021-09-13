@@ -9,16 +9,14 @@ export default {
 
 <template>
   <div>
-    <h1>Vue Example</h1>
+    <h1 class="title">Vue Example</h1>
     <HelloWorld msg="Hello Vue 3 + Vite">
-      <div>a</div>
-      <div>c</div>
-      <div>f</div>
-      <div>g</div>
+      <div class="panel">a</div>
+      <div class="panel">c</div>
+      <div class="panel">f</div>
+      <div class="panel">g</div>
+      <div class="panel">dt</div>
     </HelloWorld>
-    <p>So this work</p>
-    <p>But why?</p>
-    <p>Clean too</p>
   </div>
 </template>
 
@@ -30,5 +28,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.title {
+  color: #42b983;
+}
+
+.panel {
+  background-color: #42b983;
+  height: 70vh;
 }
 </style>

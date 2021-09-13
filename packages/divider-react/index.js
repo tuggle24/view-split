@@ -28,7 +28,7 @@ export function SplitView({ children, options }) {
     });
   }
 
-  function handleDown(position) {
+  function capturePosition(position) {
     return function (event) {
       handleMouseDown(position, event, store, updateSizes);
     };
@@ -36,13 +36,21 @@ export function SplitView({ children, options }) {
 
   const dividends = [];
 
-  for (let index = 0, len = Children.count(children); index < len; ++index) {
-    const child = children[index];
+  for (
+    let position = 0, length = Children.count(children);
+    position < length;
+    ++position
+  ) {
+    const child = children[position];
 
-    if (index % 2 !== 0) {
-      const t = handleDown(index);
+    if (position != 0) {
+      const captureEvent = capturePosition(position);
       dividends.push(
-        <div onMouseDown={t} style={{ width: "20px" }}>
+        <div
+          className="divider"
+          onMouseDown={captureEvent}
+          style={{ width: `${store.dividerSize}px` }}
+        >
           c
         </div>
       );
@@ -50,10 +58,18 @@ export function SplitView({ children, options }) {
 
     dividends.push(
       cloneElement(child, {
-        style: { width: `calc(${store.sizes[index]}% - ${20 / 2}px)` },
+        style: {
+          width: `calc(${store.sizes[position]}% - ${
+            (store.dividerSize * store.numberOfDividers) / store.numberOfPanels
+          }px)`,
+        },
       })
     );
   }
 
-  return <div style={{ display: "flex" }}>{dividends}</div>;
+  return (
+    <div className="SplitView" style={{ display: "flex" }}>
+      {dividends}
+    </div>
+  );
 }

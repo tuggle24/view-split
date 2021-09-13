@@ -1,0 +1,16 @@
+.App {
+  height: 70vh;
+}
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.SplitView {
+  height: 100%;
+  background-color: rgb(182, 255, 212);
+}
+
+.divider {
+  background-color: rgb(156, 70, 255);
+}
