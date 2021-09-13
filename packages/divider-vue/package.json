@@ -2,7 +2,7 @@
   "name": "divider-vue",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/HelloWorld.js",
+  "main": "dist/SplitPane.js",
   "scripts": {
     "watch": "rollup -c -w"
   },

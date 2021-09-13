@@ -1,6 +1,6 @@
 <script>
 	export let name;
-	import { Split, Divider, Pane } from 'divider-svelte'
+	import { Split } from 'divider-svelte'
 </script>
 
 <main>

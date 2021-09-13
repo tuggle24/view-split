@@ -2,9 +2,9 @@ import vuePlugin from "rollup-plugin-vue";
 
 export default [
   {
-    input: "src/HelloWorld.vue",
+    input: "src/SplitPane.vue",
     output: {
-      file: "dist/HelloWorld.js",
+      file: "dist/SplitPane.js",
       format: "esm",
     },
     plugins: [vuePlugin()],
