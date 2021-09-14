@@ -3,10 +3,7 @@ import { handleMouseDown, buildSystem } from "divider-html";
 
 export function SplitView({ children, options }) {
   const state = useState(function () {
-    return buildSystem(
-      Children.count(children),
-      options || { divide: "horizontal" }
-    );
+    return buildSystem(Children.count(children), options || {});
   });
   const system = state[0];
   const updateSystem = state[1];

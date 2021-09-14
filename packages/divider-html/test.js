@@ -12,9 +12,8 @@ test("expect system to be defined", () => {
     numberOfDividers: 1,
     panelSpaceForDivider: 5,
     onDrag: expect.any(Function),
-    onDragStart: expect.any(Function),
-    onDragEnd: expect.any(Function),
-    onResize: expect.any(Function),
+    beforeDrag: expect.any(Function),
+    afterDrag: expect.any(Function),
   };
 
   const sut = buildSystem(2, {});

@@ -4,6 +4,7 @@ function noOperation() {
 
 function handleMouseUp(
   moveHandler,
+  system,
   parent,
   previousElement,
   divider,
@@ -11,6 +12,8 @@ function handleMouseUp(
 ) {
   return function handler(event) {
     event.preventDefault();
+
+    system.afterDrag(system.sizes.map((size) => size));
 
     document.removeEventListener("mousemove", moveHandler);
     document.removeEventListener("mouseup", handler);
@@ -67,6 +70,7 @@ function handleMouseMove(
     const nextSiblingSize = totalPer - (offset / size) * totalPer;
 
     updateSizes(position, [previousSiblingSize, nextSiblingSize]);
+    system.onDrag(system.sizes.map((size) => size));
   };
 }
 
@@ -75,6 +79,8 @@ export function handleMouseDown(position, event, system, updateSizes) {
   if (event.button !== 0) {
     return;
   }
+
+  system.beforeDrag(system.sizes.map((size) => size));
 
   const previousElement = event.target.previousElementSibling;
   const nextElement = event.target.nextElementSibling;
@@ -114,6 +120,7 @@ export function handleMouseDown(position, event, system, updateSizes) {
     "mouseup",
     handleMouseUp(
       moveHandler,
+      system,
       event.target.parentElement,
       previousElement,
       event.target,
@@ -137,13 +144,12 @@ export function buildSystem(amountOfDivisions, options) {
     sizes: createArray(amountOfDivisions, 100 / amountOfDivisions),
     minSizes: createArray(amountOfDivisions, 100),
     maxSizes: createArray(amountOfDivisions, Number.POSITIVE_INFINITY),
-    onDrag: noOperation,
-    onDragStart: noOperation,
-    onDragEnd: noOperation,
+    onDrag: options.onDrag || noOperation,
+    beforeDrag: options.beforeDrag || noOperation,
+    afterDrag: options.afterDrag || noOperation,
     divide: options.divide || "vertical",
     cursor: isHorizontal ? "row-resize" : "col-resize",
-    dividerSize:
-      typeof options.dividerSize == "number" ? options.dividerSize : 10,
+    dividerSize: options.dividerSize || 10,
     numberOfPanels: amountOfDivisions,
     numberOfDividers: amountOfDivisions - 1,
     panelSpaceForDivider: 0,

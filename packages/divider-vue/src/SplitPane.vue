@@ -2,9 +2,10 @@
 import { handleMouseDown, buildSystem } from "divider-html";
 
 export default {
+  props: ["options"],
   data() {
     return {
-      system: buildSystem(this.$slots.default.length, {}),
+      system: buildSystem(this.$slots.default.length, this.options || {}),
     };
   },
   methods: {
@@ -24,21 +25,16 @@ export default {
   },
   render: function (h) {
     const dividends = [];
-    const amountOfSlots = this.$slots.default.length;
 
-    for (let position = 0; position < amountOfSlots; ++position) {
+    for (let position = 0; position < this.$slots.default.length; ++position) {
       if (position != 0) {
         dividends.push(
-          h(
-            "div",
-            {
-              style: {
-                [this.system.elementDimension]: `${this.system.dividerSize}px`,
-              },
-              on: { mousedown: (event) => this.onMouseDown(event, position) },
+          h("div", {
+            style: {
+              [this.system.elementDimension]: `${this.system.dividerSize}px`,
             },
-            "b"
-          )
+            on: { mousedown: (event) => this.onMouseDown(event, position) },
+          })
         );
       }
 

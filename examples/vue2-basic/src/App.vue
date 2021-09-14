@@ -1,8 +1,16 @@
 <script>
 import HelloWorld from "divider-vue";
+const onDrag = (sizes) => {
+  console.log("In app:", sizes);
+};
 export default {
   components: {
     HelloWorld,
+  },
+  data() {
+    return {
+      options: { onDrag },
+    };
   },
 };
 </script>
@@ -10,7 +18,7 @@ export default {
 <template>
   <div id="app">
     <h1 class="title">Vue Example</h1>
-    <HelloWorld msg="Hello Vue 3 + Vite">
+    <HelloWorld :options="options">
       <div class="panel">a</div>
       <div class="panel">c</div>
       <div class="panel">f</div>
