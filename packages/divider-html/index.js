@@ -180,7 +180,7 @@ export function buildSystem(amountOfDivisions, options) {
       );
 
   const maxSizes = Array.isArray(options.maxSizes)
-    ? options.sizes
+    ? options.maxSizes
     : createArray(
         amountOfDivisions,
         typeof options.maxSizes == "number"
