@@ -2,7 +2,7 @@
 	import { writable } from "svelte/store";
 	import { handleMouseDown, buildSystem } from 'divider-html'
 
-	export let options = {}
+	export let options = { }
 
 	export const store = writable({});
 
@@ -30,22 +30,23 @@
 
 	$: {
 		panes.forEach((pane, position) => {
-			pane.style.width = `calc(${$store.sizes[position]}% - ${$store.panelSpaceForDivider}px)`
+			pane.style[$store.elementDimension] = `calc(${$store.sizes[position]}% - ${$store.panelSpaceForDivider}px)`
 		})
 	}
 
 	function splitView (node) {
 		const amountOfChildren = node.children.length
-		store.set(buildSystem(options, amountOfChildren))
+		store.set(buildSystem(amountOfChildren, options))
 
 		for (let position = amountOfChildren - 1; position >= 0; --position) {
 			const child = node.children[position]
-			child.style.width = `calc(${$store.sizes[position]}% - ${$store.panelSpaceForDivider}px)`
+			child.style[$store.elementDimension] = `calc(${$store.sizes[position]}% - ${$store.panelSpaceForDivider}px)`
 			panes.unshift(child)
 
 			if (position != 0) {
+				console.log($store.elementDimension)
 				const divider = document.createElement("div")
-				divider.style.width = `${$store.dividerSize}px`
+				divider.style[$store.elementDimension] = `${$store.dividerSize}px`
 				divider.style.backgroundColor = 'black'
 				node.insertBefore(divider, child)
 				divider.addEventListener('mousedown', capturePosition(position))
@@ -54,6 +55,6 @@
 	}
 </script>
 
-<div style='display: flex' use:splitView class='SplitView'>
+<div style={`display: flex; flex-direction: ${$store.flexDirection}`} use:splitView class='SplitView'>
 	<slot />
 </div>

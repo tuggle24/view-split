@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div id="app">
     <h1 class="title">Vue Example</h1>
     <HelloWorld msg="Hello Vue 3 + Vite">
       <div class="panel">a</div>
@@ -25,16 +25,17 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
+  height: 70vh;
 }
 .title {
   color: #42b983;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 .panel {
   background-color: #42b983;
-  height: 70vh;
+  /* height: 70vh; */
 }
 </style>

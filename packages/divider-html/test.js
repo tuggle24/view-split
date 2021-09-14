@@ -24,7 +24,6 @@ test("expect system to be defined", () => {
 
 test("expect divide to be horizontal and cursor to be row-resize", () => {
   const sut = buildSystem(2, { divide: "horizontal" });
-  console.log(sut.cursor);
 
   expect(sut).toMatchObject({ divide: "horizontal", cursor: "row-resize" });
 });

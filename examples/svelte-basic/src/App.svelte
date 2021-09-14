@@ -18,11 +18,13 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
+		height: 70vh;
+
 	}
 
 	.panel {
-		height: 70vh;
 		background-color: rgb(182, 255, 212);
+		height: 70px;
 	}
 	h1 {
 		color: #ff3e00;

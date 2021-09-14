@@ -4,7 +4,7 @@ import { handleMouseDown, buildSystem } from "divider-html";
 export default {
   data() {
     return {
-      system: buildSystem({}, this.$slots.default.length),
+      system: buildSystem(this.$slots.default.length, {}),
     };
   },
   methods: {
@@ -32,7 +32,9 @@ export default {
           h(
             "div",
             {
-              style: { width: "10px" },
+              style: {
+                [this.system.elementDimension]: `${this.system.dividerSize}px`,
+              },
               on: { mousedown: (event) => this.onMouseDown(event, position) },
             },
             "b"
@@ -45,7 +47,8 @@ export default {
           "div",
           {
             style: {
-              width: `calc(${this.system.sizes[position]}% - ${this.system.panelSpaceForDivider}px)`,
+              [this.system
+                .elementDimension]: `calc(${this.system.sizes[position]}% - ${this.system.panelSpaceForDivider}px)`,
             },
           },
           [this.$slots.default[position]]
@@ -53,7 +56,11 @@ export default {
       );
     }
 
-    return h("div", { style: { display: "flex" } }, [dividends]);
+    return h(
+      "div",
+      { style: { display: "flex", flexDirection: this.system.flexDirection } },
+      [dividends]
+    );
   },
 };
 </script>

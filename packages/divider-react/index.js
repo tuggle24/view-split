@@ -2,31 +2,36 @@ import React, { useState, Children, cloneElement } from "react";
 import { handleMouseDown, buildSystem } from "divider-html";
 
 export function SplitView({ children, options }) {
-  const state = useState(buildSystem(options, Children.count(children)));
-  const store = state[0];
-  const updateStore = state[1];
+  const state = useState(function () {
+    return buildSystem(
+      Children.count(children),
+      options || { divide: "horizontal" }
+    );
+  });
+  const system = state[0];
+  const updateSystem = state[1];
 
   function updateSizes(position, sizes) {
-    updateStore((prevSizes) => {
-      const newStore = {};
-      for (var key in prevSizes) {
-        newStore[key] = prevSizes[key];
+    updateSystem((oldSystem) => {
+      const newSystem = {};
+      for (var key in oldSystem) {
+        newSystem[key] = oldSystem[key];
       }
-      for (let i = 0; i < newStore.sizes.length; ++i) {
+      for (let i = 0; i < newSystem.sizes.length; ++i) {
         if (i == position - 1) {
-          newStore.sizes[i] = sizes[0];
+          newSystem.sizes[i] = sizes[0];
         }
         if (i == position) {
-          newStore.sizes[i] = sizes[1];
+          newSystem.sizes[i] = sizes[1];
         }
       }
-      return newStore;
+      return newSystem;
     });
   }
 
   function capturePosition(position) {
     return function (event) {
-      handleMouseDown(position, event, store, updateSizes);
+      handleMouseDown(position, event, system, updateSizes);
     };
   }
 
@@ -42,24 +47,25 @@ export function SplitView({ children, options }) {
         <div
           className="divider"
           onMouseDown={capturePosition(position)}
-          style={{ width: `${store.dividerSize}px` }}
-        >
-          c
-        </div>
+          style={{ [system.elementDimension]: `${system.dividerSize}px` }}
+        />
       );
     }
 
     dividends.push(
       cloneElement(children[position], {
         style: {
-          width: `calc(${store.sizes[position]}% - ${store.panelSpaceForDivider}px)`,
+          [system.elementDimension]: `calc(${system.sizes[position]}% - ${system.panelSpaceForDivider}px)`,
         },
       })
     );
   }
 
   return (
-    <div className="SplitView" style={{ display: "flex" }}>
+    <div
+      className="SplitView"
+      style={{ display: "flex", flexDirection: system.flexDirection }}
+    >
       {dividends}
     </div>
   );

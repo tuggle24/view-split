@@ -47,16 +47,20 @@ function handleMouseMove(
     mouseMoveEvent.preventDefault();
 
     const offset =
-      mouseMoveEvent.clientX -
-      mouseDownEvent.target.previousElementSibling.getBoundingClientRect()
-        .left +
+      mouseMoveEvent[system.eventDimension] -
+      mouseDownEvent.target.previousElementSibling.getBoundingClientRect()[
+        system.elementStart
+      ] +
       (system.panelSpaceForDivider - dragOffset);
 
     const size =
       system.panelSpaceForDivider * 2 +
-      mouseDownEvent.target.previousElementSibling.getBoundingClientRect()
-        .width +
-      mouseDownEvent.target.nextElementSibling.getBoundingClientRect().width;
+      mouseDownEvent.target.previousElementSibling.getBoundingClientRect()[
+        system.elementDimension
+      ] +
+      mouseDownEvent.target.nextElementSibling.getBoundingClientRect()[
+        system.elementDimension
+      ];
 
     const totalPer = system.sizes[position - 1] + system.sizes[position];
     const previousSiblingSize = (offset / size) * totalPer;
@@ -94,7 +98,9 @@ export function handleMouseDown(position, event, system, updateSizes) {
   event.target.parentElement.style.cursor = system.cursor;
   document.body.style.cursor = system.cursor;
 
-  const dragOffset = event.clientX - event.target.getBoundingClientRect().left;
+  const dragOffset =
+    event[system.eventDimension] -
+    event.target.getBoundingClientRect()[system.elementStart];
   const moveHandler = handleMouseMove(
     position,
     event,
@@ -126,33 +132,26 @@ function createArray(length, value) {
 }
 
 export function buildSystem(amountOfDivisions, options) {
+  const isHorizontal = options.divide == "horizontal";
   const system = {
     sizes: createArray(amountOfDivisions, 100 / amountOfDivisions),
     minSizes: createArray(amountOfDivisions, 100),
     maxSizes: createArray(amountOfDivisions, Number.POSITIVE_INFINITY),
-    divide: "vertical",
-    cursor: options.divide == "horizontal" ? "row-resize" : "col-resize",
     onDrag: noOperation,
     onDragStart: noOperation,
     onDragEnd: noOperation,
-    onResize: noOperation,
-    dividerSize: 10,
+    divide: options.divide || "vertical",
+    cursor: isHorizontal ? "row-resize" : "col-resize",
+    dividerSize:
+      typeof options.dividerSize == "number" ? options.dividerSize : 10,
     numberOfPanels: amountOfDivisions,
     numberOfDividers: amountOfDivisions - 1,
     panelSpaceForDivider: 0,
-    eventDimension: 0,
-    elementDimension: 0,
+    eventDimension: isHorizontal ? "clientY" : "clientX",
+    elementDimension: isHorizontal ? "height" : "width",
+    elementStart: isHorizontal ? "top" : "left",
+    flexDirection: isHorizontal ? "column" : "row",
   };
-
-  for (const key of Object.keys(options)) {
-    if (options[key].constructor.name === system[key].constructor.name) {
-      system[key] = options[key];
-    } else {
-      throw new Error(
-        `config, ${options[key]}, should be of type: ${system[key].constructor.name}`
-      );
-    }
-  }
 
   system.panelSpaceForDivider =
     (system.dividerSize * system.numberOfDividers) / system.numberOfPanels;
