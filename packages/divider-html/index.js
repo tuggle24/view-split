@@ -49,7 +49,7 @@ function handleMouseMove(
   return function handler(mouseMoveEvent) {
     mouseMoveEvent.preventDefault();
 
-    const offset =
+    let offset =
       mouseMoveEvent[system.eventDimension] -
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()[
         system.elementStart
@@ -64,6 +64,28 @@ function handleMouseMove(
       mouseDownEvent.target.nextElementSibling.getBoundingClientRect()[
         system.elementDimension
       ];
+
+    if (offset <= system.minSizes[position - 1] + system.panelSpaceForDivider) {
+      offset = system.minSizes[position - 1] + system.panelSpaceForDivider;
+    }
+
+    if (
+      offset >=
+      size - system.minSizes[position] - system.panelSpaceForDivider
+    ) {
+      offset = size - system.minSizes[position] - system.panelSpaceForDivider;
+    }
+
+    if (offset >= system.maxSizes[position - 1] + system.panelSpaceForDivider) {
+      offset = system.maxSizes[position - 1] + system.panelSpaceForDivider;
+    }
+
+    if (
+      offset <=
+      size - system.maxSizes[position] - system.panelSpaceForDivider
+    ) {
+      offset = size - system.maxSizes[position] - system.panelSpaceForDivider;
+    }
 
     const totalPer = system.sizes[position - 1] + system.sizes[position];
     const previousSiblingSize = (offset / size) * totalPer;
@@ -140,10 +162,35 @@ function createArray(length, value) {
 
 export function buildSystem(amountOfDivisions, options) {
   const isHorizontal = options.divide == "horizontal";
+
+  const sizes = Array.isArray(options.sizes)
+    ? options.sizes
+    : createArray(
+        amountOfDivisions,
+        typeof options.sizes == "number"
+          ? options.sizes
+          : 100 / amountOfDivisions
+      );
+
+  const minSizes = Array.isArray(options.minSizes)
+    ? options.minSizes
+    : createArray(
+        amountOfDivisions,
+        typeof options.minSizes == "number" ? options.minSizes : 100
+      );
+
+  const maxSizes = Array.isArray(options.maxSizes)
+    ? options.sizes
+    : createArray(
+        amountOfDivisions,
+        typeof options.maxSizes == "number"
+          ? options.maxSizes
+          : Number.POSITIVE_INFINITY
+      );
   const system = {
-    sizes: createArray(amountOfDivisions, 100 / amountOfDivisions),
-    minSizes: createArray(amountOfDivisions, 100),
-    maxSizes: createArray(amountOfDivisions, Number.POSITIVE_INFINITY),
+    sizes,
+    minSizes,
+    maxSizes,
     onDrag: options.onDrag || noOperation,
     beforeDrag: options.beforeDrag || noOperation,
     afterDrag: options.afterDrag || noOperation,
