@@ -22,7 +22,7 @@ const fixtures = [
     options: {},
     expected: {
       sizes: [50, 50],
-      minSizes: [100, 100],
+      minSizes: [0, 0],
       maxSizes: [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
       divide: "vertical",
       cursor: "col-resize",

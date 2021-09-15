@@ -9,7 +9,7 @@ export default {
     };
   },
   methods: {
-    onMouseDown(event, position) {
+    startResize(event, position) {
       handleMouseDown(position, event, this.system, this.paintScreen);
     },
     paintScreen(position, updatedSizes) {
@@ -33,7 +33,10 @@ export default {
             style: {
               [this.system.elementDimension]: `${this.system.dividerSize}px`,
             },
-            on: { mousedown: (event) => this.onMouseDown(event, position) },
+            on: {
+              mousedown: (event) => this.startResize(event, position),
+              touchstart: (event) => this.startResize(event, position),
+            },
           })
         );
       }

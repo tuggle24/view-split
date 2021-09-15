@@ -11,12 +11,16 @@ function handleMouseUp(
   nextElement
 ) {
   return function handler(event) {
-    event.preventDefault();
+    if (!("touches" in event)) event.preventDefault();
 
     system.afterDrag(system.sizes.map((size) => size));
 
     document.removeEventListener("mousemove", moveHandler);
     document.removeEventListener("mouseup", handler);
+
+    document.removeEventListener("touchmove", moveHandler);
+    document.removeEventListener("touchend", handler);
+    document.removeEventListener("touchcancel", handler);
 
     previousElement.removeEventListener("selectstart", noOperation);
     previousElement.removeEventListener("dragstart", noOperation);
@@ -47,10 +51,10 @@ function handleMouseMove(
   updateSizes
 ) {
   return function handler(mouseMoveEvent) {
-    mouseMoveEvent.preventDefault();
+    if (!("touches" in mouseMoveEvent)) mouseMoveEvent.preventDefault();
 
     let offset =
-      mouseMoveEvent[system.eventDimension] -
+      getLocation(mouseMoveEvent)[system.eventDimension] -
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()[
         system.elementStart
       ] +
@@ -97,10 +101,8 @@ function handleMouseMove(
 }
 
 export function handleMouseDown(position, event, system, updateSizes) {
-  event.preventDefault();
-  if (event.button !== 0) {
-    return;
-  }
+  if (!("touches" in event)) event.preventDefault();
+  if ("button" in event && event.button != 0) return;
 
   system.beforeDrag(system.sizes.map((size) => size));
 
@@ -127,7 +129,7 @@ export function handleMouseDown(position, event, system, updateSizes) {
   document.body.style.cursor = system.cursor;
 
   const dragOffset =
-    event[system.eventDimension] -
+    getLocation(event)[system.eventDimension] -
     event.target.getBoundingClientRect()[system.elementStart];
   const moveHandler = handleMouseMove(
     position,
@@ -138,6 +140,8 @@ export function handleMouseDown(position, event, system, updateSizes) {
   );
 
   document.addEventListener("mousemove", moveHandler);
+  document.addEventListener("touchmove", moveHandler);
+
   document.addEventListener(
     "mouseup",
     handleMouseUp(
@@ -149,8 +153,35 @@ export function handleMouseDown(position, event, system, updateSizes) {
       nextElement
     )
   );
+  document.addEventListener(
+    "touchend",
+    handleMouseUp(
+      moveHandler,
+      system,
+      event.target.parentElement,
+      previousElement,
+      event.target,
+      nextElement
+    )
+  );
+  document.addEventListener(
+    "touchcancel",
+    handleMouseUp(
+      moveHandler,
+      system,
+      event.target.parentElement,
+      previousElement,
+      event.target,
+      nextElement
+    )
+  );
 }
 
+function getLocation(event) {
+  if ("touches" in event) return event.touches[0];
+
+  return event;
+}
 function createArray(length, value) {
   const emptyCollection = [];
   while (length) {
@@ -176,7 +207,7 @@ export function buildSystem(amountOfDivisions, options) {
     ? options.minSizes
     : createArray(
         amountOfDivisions,
-        typeof options.minSizes == "number" ? options.minSizes : 100
+        typeof options.minSizes == "number" ? options.minSizes : 0
       );
 
   const maxSizes = Array.isArray(options.maxSizes)

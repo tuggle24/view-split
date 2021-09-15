@@ -3,14 +3,9 @@ import ReactDOM from "react-dom";
 import { SplitView } from "divider-react";
 import "./main.css";
 
-const afterDrag = (sizes) => {
-  console.log("In app:", sizes);
-};
-
 function App() {
   const options = {
-    divide: "horizontal",
-    afterDrag,
+    dividerSize: 10,
   };
   return (
     <div className="App">

@@ -44,6 +44,7 @@ export function SplitView({ children, options }) {
         <div
           className="divider"
           onMouseDown={capturePosition(position)}
+          onTouchStart={capturePosition(position)}
           style={{ [system.elementDimension]: `${system.dividerSize}px` }}
         />
       );
