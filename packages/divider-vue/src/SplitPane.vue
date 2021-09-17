@@ -30,6 +30,7 @@ export default {
       if (position != 0) {
         dividends.push(
           h("div", {
+            class: "divider",
             style: {
               [this.system.elementDimension]: `${this.system.dividerSize}px`,
             },
@@ -57,7 +58,9 @@ export default {
 
     return h(
       "div",
-      { style: { display: "flex", flexDirection: this.system.flexDirection } },
+      {
+        class: "split-view",
+      },
       [dividends]
     );
   },

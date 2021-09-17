@@ -36,10 +36,16 @@
     font-weight: 100;
   }
 
-  .SplitView {
+  :global(div.split-view) {
+    display: flex;
     height: 70vh;
     background-color: rgb(182, 255, 212);
   }
+
+  :global(div.divider) {
+    background-color: rgb(156, 70, 255);
+  }
+
   @media (min-width: 640px) {
     main {
       max-width: none;

@@ -48,10 +48,9 @@
       panes.unshift(child);
 
       if (position != 0) {
-        console.log($store.elementDimension);
         const divider = document.createElement("div");
         divider.style[$store.elementDimension] = `${$store.dividerSize}px`;
-        divider.style.backgroundColor = "black";
+        divider.className += " divider";
         node.insertBefore(divider, child);
         divider.addEventListener("mousedown", capturePosition(position));
         divider.addEventListener("touchstart", capturePosition(position));
@@ -60,10 +59,6 @@
   }
 </script>
 
-<div
-  style={`display: flex; flex-direction: ${$store.flexDirection}`}
-  use:splitView
-  class="SplitView"
->
+<div use:splitView class="split-view">
   <slot />
 </div>

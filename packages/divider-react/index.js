@@ -59,12 +59,5 @@ export function SplitView({ children, options }) {
     );
   }
 
-  return (
-    <div
-      className="SplitView"
-      style={{ display: "flex", flexDirection: system.flexDirection }}
-    >
-      {dividends}
-    </div>
-  );
+  return <div className="split-view">{dividends}</div>;
 }

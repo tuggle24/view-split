@@ -6,7 +6,8 @@
   margin-bottom: 2rem;
 }
 
-.SplitView {
+.split-view {
+  display: flex;
   height: 100%;
   background-color: rgb(182, 255, 212);
 }

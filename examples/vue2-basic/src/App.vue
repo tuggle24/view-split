@@ -43,7 +43,16 @@ export default {
 }
 
 .panel {
-  background-color: #42b983;
-  /* height: 70vh; */
+  background-color: rgb(182, 255, 212);
+  /* height: 100%; */
+}
+
+.split-view {
+  display: flex;
+  /* height: 60vh; */
+}
+
+.divider {
+  background-color: rgb(156, 70, 255);
 }
 </style>
