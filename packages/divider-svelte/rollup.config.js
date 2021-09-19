@@ -1,5 +1,5 @@
 import svelte from "rollup-plugin-svelte";
-import resolve from "@rollup/plugin-node-resolve";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import pkg from "./package.json";
 
 const name = pkg.name
@@ -11,7 +11,8 @@ export default {
   input: "lib/index.js",
   output: [
     { file: pkg.module, format: "es" },
-    { file: pkg.main, format: "umd", name },
+    { file: pkg.main, format: "cjs", name },
   ],
-  plugins: [svelte(), resolve()],
+  plugins: [svelte(), nodeResolve()],
+  external: [/^svelte/],
 };

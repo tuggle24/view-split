@@ -1,4 +1,5 @@
 import vuePlugin from "rollup-plugin-vue";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default [
   {
@@ -7,7 +8,7 @@ export default [
       file: "dist/SplitPane.js",
       format: "esm",
     },
-    plugins: [vuePlugin()],
+    plugins: [nodeResolve(), vuePlugin()],
     external: ["vue"],
   },
 ];

@@ -7,8 +7,7 @@
     "test": "jest",
     "lint": "eslint packages/**",
     "format": "npx prettier --write .",
-    "prepare": "husky install",
-    "develop": "vite serve $npm_config_greeting"
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +38,7 @@
     "jest": "^27.2.0",
     "prettier": "2.2.1",
     "rollup": "^2.56.3",
+    "rollup-plugin-bundle-size": "^1.0.3",
     "vite": "^2.5.3"
   }
 }

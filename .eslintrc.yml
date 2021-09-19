@@ -17,3 +17,5 @@ parserOptions:
 overrides:
   - files: "*.svelte"
     processor: "svelte3/svelte3"
+rules:
+  "unicorn/no-new-array": off

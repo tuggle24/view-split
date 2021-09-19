@@ -14,7 +14,6 @@ function handleMouseUp(
     if (!("touches" in event)) event.preventDefault();
 
     system.afterDrag(system.sizes.map((size) => size));
-
     document.removeEventListener("mousemove", moveHandler);
     document.removeEventListener("mouseup", handler);
 
@@ -27,15 +26,9 @@ function handleMouseUp(
     nextElement.removeEventListener("selectstart", noOperation);
     nextElement.removeEventListener("dragstart", noOperation);
 
-    previousElement.style.userSelect = "";
-    previousElement.style.webkitUserSelect = "";
-    previousElement.style.MozUserSelect = "";
-    previousElement.style.pointerEvents = "";
+    previousElement.style.userSelect = "auto";
 
-    nextElement.style.userSelect = "";
-    nextElement.style.webkitUserSelect = "";
-    nextElement.style.MozUserSelect = "";
-    nextElement.style.pointerEvents = "";
+    nextElement.style.userSelect = "auto";
 
     divider.style.cursor = "";
     parent.style.cursor = "";
@@ -52,16 +45,18 @@ function handleMouseMove(
 ) {
   return function handler(mouseMoveEvent) {
     if (!("touches" in mouseMoveEvent)) mouseMoveEvent.preventDefault();
-
+    mouseMoveEvent =
+      "touches" in mouseMoveEvent ? mouseMoveEvent.touches[0] : mouseMoveEvent;
+    const panelSpaceForDivider = system.panelSpaceForDivider;
     let offset =
-      getLocation(mouseMoveEvent)[system.eventDimension] -
+      mouseMoveEvent[system.eventDimension] -
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()[
-        system.elementStart
+        system.start
       ] +
-      (system.panelSpaceForDivider - dragOffset);
+      (panelSpaceForDivider - dragOffset);
 
     const size =
-      system.panelSpaceForDivider * 2 +
+      panelSpaceForDivider * 2 +
       mouseDownEvent.target.previousElementSibling.getBoundingClientRect()[
         system.elementDimension
       ] +
@@ -69,26 +64,20 @@ function handleMouseMove(
         system.elementDimension
       ];
 
-    if (offset <= system.minSizes[position - 1] + system.panelSpaceForDivider) {
-      offset = system.minSizes[position - 1] + system.panelSpaceForDivider;
+    if (offset <= system.minSizes[position - 1] + panelSpaceForDivider) {
+      offset = system.minSizes[position - 1] + panelSpaceForDivider;
     }
 
-    if (
-      offset >=
-      size - system.minSizes[position] - system.panelSpaceForDivider
-    ) {
-      offset = size - system.minSizes[position] - system.panelSpaceForDivider;
+    if (offset >= size - system.minSizes[position] - panelSpaceForDivider) {
+      offset = size - system.minSizes[position] - panelSpaceForDivider;
     }
 
-    if (offset >= system.maxSizes[position - 1] + system.panelSpaceForDivider) {
-      offset = system.maxSizes[position - 1] + system.panelSpaceForDivider;
+    if (offset >= system.maxSizes[position - 1] + panelSpaceForDivider) {
+      offset = system.maxSizes[position - 1] + panelSpaceForDivider;
     }
 
-    if (
-      offset <=
-      size - system.maxSizes[position] - system.panelSpaceForDivider
-    ) {
-      offset = size - system.maxSizes[position] - system.panelSpaceForDivider;
+    if (offset <= size - system.maxSizes[position] - panelSpaceForDivider) {
+      offset = size - system.maxSizes[position] - panelSpaceForDivider;
     }
 
     const totalPer = system.sizes[position - 1] + system.sizes[position];
@@ -101,8 +90,9 @@ function handleMouseMove(
 }
 
 export function handleMouseDown(position, event, system, updateSizes) {
-  if (!("touches" in event)) event.preventDefault();
   if ("button" in event && event.button != 0) return;
+  if (!("touches" in event)) event.preventDefault();
+  event = "touches" in event ? event.touches[0] : event;
 
   system.beforeDrag(system.sizes.map((size) => size));
 
@@ -115,22 +105,15 @@ export function handleMouseDown(position, event, system, updateSizes) {
   nextElement.addEventListener("dragstart", noOperation);
 
   previousElement.style.userSelect = "none";
-  previousElement.style.webkitUserSelect = "none";
-  previousElement.style.MozUserSelect = "none";
-  previousElement.style.pointerEvents = "none";
 
   nextElement.style.userSelect = "none";
-  nextElement.style.webkitUserSelect = "none";
-  nextElement.style.MozUserSelect = "none";
-  nextElement.style.pointerEvents = "none";
 
   event.target.style.cursor = system.cursor;
   event.target.parentElement.style.cursor = system.cursor;
   document.body.style.cursor = system.cursor;
-
   const dragOffset =
-    getLocation(event)[system.eventDimension] -
-    event.target.getBoundingClientRect()[system.elementStart];
+    event[system.eventDimension] -
+    event.target.getBoundingClientRect()[system.start];
   const moveHandler = handleMouseMove(
     position,
     event,
@@ -177,11 +160,6 @@ export function handleMouseDown(position, event, system, updateSizes) {
   );
 }
 
-function getLocation(event) {
-  if ("touches" in event) return event.touches[0];
-
-  return event;
-}
 function createArray(length, value) {
   const emptyCollection = [];
   while (length) {
@@ -218,6 +196,7 @@ export function buildSystem(amountOfDivisions, options) {
           ? options.maxSizes
           : Number.POSITIVE_INFINITY
       );
+
   const system = {
     sizes,
     minSizes,
@@ -225,20 +204,15 @@ export function buildSystem(amountOfDivisions, options) {
     onDrag: options.onDrag || noOperation,
     beforeDrag: options.beforeDrag || noOperation,
     afterDrag: options.afterDrag || noOperation,
-    divide: options.divide || "vertical",
     cursor: isHorizontal ? "row-resize" : "col-resize",
     dividerSize: options.dividerSize || 10,
-    numberOfPanels: amountOfDivisions,
-    numberOfDividers: amountOfDivisions - 1,
-    panelSpaceForDivider: 0,
     eventDimension: isHorizontal ? "clientY" : "clientX",
     elementDimension: isHorizontal ? "height" : "width",
-    elementStart: isHorizontal ? "top" : "left",
-    flexDirection: isHorizontal ? "column" : "row",
+    start: isHorizontal ? "top" : "left",
+    panelSpaceForDivider:
+      ((options.dividerSize || 10) * (amountOfDivisions - 1)) /
+      amountOfDivisions,
   };
-
-  system.panelSpaceForDivider =
-    (system.dividerSize * system.numberOfDividers) / system.numberOfPanels;
 
   return system;
 }

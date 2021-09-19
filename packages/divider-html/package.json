@@ -2,9 +2,9 @@
   "name": "divider-html",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "browser": "index.js",
   "scripts": {
-    "test": "jest --watch"
+    "build": "rollup -c"
   },
   "keywords": [],
   "author": "",
