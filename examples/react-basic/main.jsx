@@ -11,10 +11,11 @@ function App() {
     <div className="App">
       <h1 className="title">Split View Example</h1>
       <SplitView options={options}>
-        <div>a</div>
-        <div>b</div>
-        <div>d</div>
-        <div>h</div>
+        <div>s</div>
+        <div>p</div>
+        <div>l</div>
+        <div>i</div>
+        <div>t</div>
       </SplitView>
     </div>
   );

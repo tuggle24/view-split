@@ -44,12 +44,10 @@ export default {
 
 .panel {
   background-color: rgb(182, 255, 212);
-  /* height: 100%; */
 }
 
 .split-view {
   display: flex;
-  /* height: 60vh; */
 }
 
 .divider {
