@@ -4,7 +4,7 @@ Create resizible views (panels) in svelte.
 
 **Features:**
 
-- Size is less than 3 kb
+- Size is less than 2 kb
 - Support both horizontal and vertical splits
 - Support multiple splits
 - Support lifecyle functions

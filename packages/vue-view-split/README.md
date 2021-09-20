@@ -4,7 +4,7 @@ Create resizible views (panels) in Vue v2.
 
 **Features:**
 
-- Size is less than 3 kb
+- Size is less than 2 kb
 - Support both horizontal and vertical splits
 - Support multiple splits
 - Support lifecyle functions
@@ -43,7 +43,7 @@ export default {
 </template>
 
 <style>
-.split-view {
+.view-split {
   display: flex;
 }
 
@@ -124,7 +124,7 @@ export default {
 </template>
 
 <style>
-.split-view {
+.view-split {
   display: flex;
   flex-direction: flex-direction;
 }

@@ -1,6 +1,6 @@
 {
   "name": "vue-view-split",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Resizable views (panels) for vue",
   "keywords": [
     "split",
@@ -31,10 +31,12 @@
   "author": "Demetrius Tuggle",
   "license": "MIT",
   "devDependencies": {
-    "rollup-plugin-vue": "^5.1.9",
-    "vue": "^2.6.14"
+    "rollup-plugin-vue": "^5.1.9"
   },
   "dependencies": {
     "html-view-split": "file:../html-view-split"
+  },
+  "peerDependencies": {
+    "vue": "^2.0.0"
   }
 }
