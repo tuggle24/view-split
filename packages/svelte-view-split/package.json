@@ -1,6 +1,6 @@
 {
   "name": "svelte-view-split",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Resizable views (panels) for svelte",
   "keywords": [
     "split",

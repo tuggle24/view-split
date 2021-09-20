@@ -1,6 +1,6 @@
 {
   "name": "react-view-split",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Resizable views (panels) for react",
   "main": "dist/react-view-split.cjs.js",
   "module": "dist/react-view-split.esm.js",
