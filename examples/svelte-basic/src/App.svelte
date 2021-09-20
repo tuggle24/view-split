@@ -1,5 +1,5 @@
 <script>
-  import { Split } from "divider-svelte";
+  import ViewSplit from "svelte-view-split";
   const afterDrag = (sizes) => {
     console.log("In app:", sizes);
   };
@@ -8,12 +8,12 @@
 
 <main>
   <h1>Split Example</h1>
-  <Split {options}>
+  <ViewSplit {options}>
     <div class="panel">a</div>
     <div class="panel">b</div>
     <div class="panel">r</div>
     <div class="panel">p</div>
-  </Split>
+  </ViewSplit>
 </main>
 
 <style>

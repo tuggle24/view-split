@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { SplitView } from "divider-react";
+import { SplitView } from "react-view-split";
 import "./main.css";
 
 function App() {

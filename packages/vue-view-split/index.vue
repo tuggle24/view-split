@@ -1,5 +1,5 @@
 <script>
-import { handleMouseDown, buildSystem } from "divider-html";
+import { handleMouseDown, buildSystem } from "html-view-split";
 
 export default {
   props: ["options"],

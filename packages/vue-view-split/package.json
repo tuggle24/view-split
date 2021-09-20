@@ -1,9 +1,13 @@
 {
-  "name": "divider-vue",
+  "name": "vue-view-split",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/SplitPane.js",
+  "description": "Resizable views (panels) for vue",
+  "keywords": ["split", "split-layout", "splitter", "view-splitter","splitter", "draggable", "resizable", "vue", "vue-component"],
+  "main": "dist/vue-view-split.cjs.js",
+  "module": "dist/vue-view-split.esm.js",
+  "source": "index.js",
   "scripts": {
+    "build": "rollup -c",
     "watch": "rollup -c -w"
   },
   "repository": {
@@ -11,17 +15,16 @@
     "url": "git+https://github.com/tuggle24/divider.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tuggle24/divider/issues"
   },
   "homepage": "https://github.com/tuggle24/divider#readme",
   "devDependencies": {
-    "rollup": "^2.56.3",
     "rollup-plugin-vue": "^5.1.9",
     "vue": "^2.6.14"
   },
   "dependencies": {
-    "divider-html": "file:../divider-html"
+    "html-view-split": "file:../html-view-split"
   }
 }

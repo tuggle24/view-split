@@ -1,11 +1,11 @@
 <script>
-import HelloWorld from "divider-vue";
+import ViewSplit from "vue-view-split";
 const onDrag = (sizes) => {
   console.log("In app:", sizes);
 };
 export default {
   components: {
-    HelloWorld,
+    ViewSplit,
   },
   data() {
     return {
@@ -18,13 +18,13 @@ export default {
 <template>
   <div id="app">
     <h1 class="title">Vue Example</h1>
-    <HelloWorld :options="options">
+    <ViewSplit :options="options">
       <div class="panel">a</div>
       <div class="panel">c</div>
       <div class="panel">f</div>
       <div class="panel">g</div>
       <div class="panel">dt</div>
-    </HelloWorld>
+    </ViewSplit>
   </div>
 </template>
 

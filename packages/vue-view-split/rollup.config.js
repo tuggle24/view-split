@@ -3,9 +3,9 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default [
   {
-    input: "src/SplitPane.vue",
+    input: "index.vue",
     output: {
-      file: "dist/SplitPane.js",
+      file: "dist/vue-view-split.esm.js",
       format: "esm",
     },
     plugins: [nodeResolve(), vuePlugin()],

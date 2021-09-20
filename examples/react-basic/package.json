@@ -9,7 +9,7 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "divider-react": "file:../../packages/divider-react"
+    "react-view-split": "file:../../packages/react-view-split"
   },
   "scripts": {
     "develop": "vite"

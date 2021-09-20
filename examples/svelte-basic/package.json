@@ -8,7 +8,7 @@
     "svelte": "^3.42.4"
   },
   "dependencies": {
-    "divider-svelte": "file:../../packages/divider-svelte"
+    "svelte-view-split": "file:../../packages/svelte-view-split"
   },
   "scripts": {
     "develop": "vite"

@@ -1,5 +1,5 @@
 {
-  "name": "vue2-basic",
+  "name": "vue-basic",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,7 +22,7 @@
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
-    "divider-vue": "file:../../packages/divider-vue",
+    "vue-view-split": "file:../../packages/vue-view-split",
     "vue": "^2.6.14"
   }
 }

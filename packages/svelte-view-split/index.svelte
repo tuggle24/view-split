@@ -1,6 +1,6 @@
 <script>
   import { writable } from "svelte/store";
-  import { handleMouseDown, buildSystem } from "divider-html";
+  import { handleMouseDown, buildSystem } from "html-view-split";
 
   export let options = {};
 

@@ -1,5 +1,5 @@
 import React, { useState, Children, cloneElement } from "react";
-import { handleMouseDown, buildSystem } from "divider-html";
+import { handleMouseDown, buildSystem } from "html-view-split";
 
 export function SplitView({ children, options }) {
   const state = useState(function () {
