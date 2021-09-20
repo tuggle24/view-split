@@ -59,7 +59,7 @@ export default {
     return h(
       "div",
       {
-        class: "split-view",
+        class: "view-split",
       },
       [dividends]
     );

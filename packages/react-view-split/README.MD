@@ -41,6 +41,10 @@ function App() {
 .view-split {
   display: flex;
 }
+
+.divider {
+  background-color: rgb(156, 70, 255);
+}
 ```
 
 ## API
@@ -111,5 +115,9 @@ function App() {
 .view-split {
   display: flex;
   flex-direction: column;
+}
+
+.divider {
+  background-color: rgb(156, 70, 255);
 }
 ```

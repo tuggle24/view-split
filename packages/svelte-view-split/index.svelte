@@ -59,6 +59,6 @@
   }
 </script>
 
-<div use:splitView class="split-view">
+<div use:splitView class="view-split">
   <slot />
 </div>

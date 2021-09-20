@@ -1,7 +1,7 @@
 import React, { useState, Children, cloneElement } from "react";
 import { handleMouseDown, buildSystem } from "html-view-split";
 
-export function SplitView({ children, options }) {
+export function ViewSplit({ children, options }) {
   const state = useState(function () {
     return buildSystem(Children.count(children), options || {});
   });
@@ -59,5 +59,5 @@ export function SplitView({ children, options }) {
     );
   }
 
-  return <div className="split-view">{dividends}</div>;
+  return <div className="view-split">{dividends}</div>;
 }

@@ -46,6 +46,10 @@ export default {
 .split-view {
   display: flex;
 }
+
+.divider {
+  background-color: rgb(156, 70, 255);
+}
 </style>
 ```
 
@@ -123,6 +127,10 @@ export default {
 .split-view {
   display: flex;
   flex-direction: flex-direction;
+}
+
+.divider {
+  background-color: rgb(156, 70, 255);
 }
 </style>
 ```

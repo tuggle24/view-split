@@ -46,7 +46,7 @@ export default {
   background-color: rgb(182, 255, 212);
 }
 
-.split-view {
+.view-split {
   display: flex;
 }
 

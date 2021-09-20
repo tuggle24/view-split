@@ -36,7 +36,7 @@
     font-weight: 100;
   }
 
-  :global(div.split-view) {
+  :global(div.view-split) {
     display: flex;
     height: 70vh;
     background-color: rgb(182, 255, 212);

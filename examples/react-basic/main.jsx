@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { SplitView } from "react-view-split";
+import { ViewSplit } from "react-view-split";
 import "./main.css";
 
 function App() {
@@ -10,13 +10,13 @@ function App() {
   return (
     <div className="App">
       <h1 className="title">Split View Example</h1>
-      <SplitView options={options}>
+      <ViewSplit options={options}>
         <div>s</div>
         <div>p</div>
         <div>l</div>
         <div>i</div>
         <div>t</div>
-      </SplitView>
+      </ViewSplit>
     </div>
   );
 }

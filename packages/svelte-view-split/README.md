@@ -34,6 +34,10 @@ In order for the below example to work correctly, the classname `view-split` nee
   :global(div.view-split) {
     display: flex;
   }
+
+  :global(div.divider) {
+    background-color: rgb(156, 70, 255);
+  }
 </style>
 ```
 
@@ -96,6 +100,11 @@ Type: `Function(sizes)`
 <style>
   :global(div.view-split) {
     display: flex;
+    flex-direction: column;
+  }
+
+  :global(div.divider) {
+    background-color: rgb(156, 70, 255);
   }
 </style>
 ```
