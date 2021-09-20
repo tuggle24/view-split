@@ -9,9 +9,27 @@
     "build": "rollup -c",
     "watch": "rollup -c -w"
   },
-  "keywords": ["split", "split-layout", "splitter", "view-splitter","splitter", "draggable", "resizable", "react", "react-component"],
-  "author": "",
+  "keywords": [
+    "split",
+    "split-layout",
+    "splitter",
+    "view-splitter",
+    "splitter",
+    "draggable",
+    "resizable",
+    "react",
+    "react-component"
+  ],
+  "author": "Demetrius Tuggle",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuggle24/view-split.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tuggle24/view-split/issues"
+  },
+  "homepage": "https://github.com/tuggle24/view-split#readme",
   "dependencies": {
     "html-view-split": "file:../html-view-split"
   },

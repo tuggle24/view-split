@@ -1,5 +1,5 @@
 <script>
-import ViewSplit from "vue-view-split";
+import { ViewSplit } from "vue-view-split";
 const onDrag = (sizes) => {
   console.log("In app:", sizes);
 };

@@ -2,10 +2,20 @@
   "name": "svelte-view-split",
   "version": "1.0.0",
   "description": "Resizable views (panels) for svelte",
-  "keywords": ["split", "split-layout", "splitter", "view-splitter","splitter", "draggable", "resizable", "svelte", "svelte-component"],
+  "keywords": [
+    "split",
+    "split-layout",
+    "splitter",
+    "view-splitter",
+    "splitter",
+    "draggable",
+    "resizable",
+    "svelte",
+    "svelte-component"
+  ],
   "main": "dist/svelte-view-split.cjs.js",
   "module": "dist/svelte-view-split.esm.js",
-  "source": "index.js",
+  "source": "index.svelte",
   "dependencies": {
     "html-view-split": "file:../html-view-split"
   },
@@ -19,12 +29,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tuggle24/divider.git"
+    "url": "git+https://github.com/tuggle24/view-split.git"
   },
-  "author": "",
+  "author": "Demetrius Tuggle",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tuggle24/divider/issues"
+    "url": "https://github.com/tuggle24/view-split/issues"
   },
-  "homepage": "https://github.com/tuggle24/divider#readme"
+  "homepage": "https://github.com/tuggle24/view-split#readme"
 }

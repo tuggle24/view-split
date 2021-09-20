@@ -1,5 +1,5 @@
 <script>
-  import ViewSplit from "svelte-view-split";
+  import { ViewSplit } from "svelte-view-split";
   const afterDrag = (sizes) => {
     console.log("In app:", sizes);
   };

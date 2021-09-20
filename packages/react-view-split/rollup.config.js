@@ -13,6 +13,18 @@ export default [
       nodeResolve(),
       babel({ babelHelpers: "bundled", rootMode: "upward" }),
     ],
-    external: [/@babel\/runtime/, "react"],
+    external: ["react"],
+  },
+  {
+    input: package_.source,
+    output: {
+      file: package_.main,
+      format: "cjs",
+    },
+    plugins: [
+      nodeResolve(),
+      babel({ babelHelpers: "bundled", rootMode: "upward" }),
+    ],
+    external: ["react"],
   },
 ];

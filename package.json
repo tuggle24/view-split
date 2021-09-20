@@ -2,7 +2,7 @@
   "name": "view-split",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "Resizable views",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,7 @@
     "prepare": "husky install"
   },
   "keywords": [],
-  "author": "",
+  "author": "Demetrius Tuggle",
   "license": "MIT",
   "workspaces": [
     "packages/*",
@@ -41,5 +41,13 @@
     "rollup": "^2.56.3",
     "rollup-plugin-bundle-size": "^1.0.3",
     "vite": "^2.5.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuggle24/view-split.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tuggle24/view-split/issues"
+  },
+  "homepage": "https://github.com/tuggle24/view-split#readme"
 }
